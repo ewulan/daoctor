@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <title>回复界面</title>
+  <link rel="stylesheet" href="../../static/layuiadmin/layui/css/layui.css">
+</head>
+<body>
+<div class="layui-fluid layadmin-message-fluid">
+    <div class="layui-row">
+        <div class="layui-col-md1">
+            <img src="../../static/images/logo4.png" style="height: 280px;width:300px">
+        </div>
+        <div class="layui-col-md11" style="top: 80px">
+            <div class="layui-row">
+                <div class="layui-col-md11">
+                    <h1  style="color:forestgreen;font-size:45px;font-family: Microsoft YaHei;position: absolute;left: 150px">客服回复咨询界面</h1>
+                </div>
+                <div class="layui-col-md1" style="position: absolute;left: 560px;top: 20px">
+                    <form class="layui-form" action="{{ url_for('reply') }}" >
+                        <button type="submit" class="layui-btn" style="float:right">
+                            <i class="layui-icon">&#xe626;</i> 主页
+                        </button>
+                    </form>
+                </div>
+            </div>
+            <form class="layui-form" action="{{ url_for('messagesearch',pagename='reply')}}" method="post">
+                <div class="layui-col-md2" style="top: 100px">
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">按</label>
+                        <div class="layui-input-block">
+                            <select name="opt" lay-verify="required">
+                                <option value="0"></option>
+                                <option value="1">咨询记录ID</option>
+                                <option value="2">咨询时间</option>
+                                <option value="3">咨询主题</option>
+                                <option value="4">咨询内容</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="layui-col-md6"style="top: 100px">
+                    <div class="layui-col-md10">
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">搜索</label>
+                            <div class="layui-input-block">
+                                <input type="text" name="search_content" required  lay-verify="required" placeholder="请输入内容" autocomplete="off" class="layui-input">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="layui-col-md2">
+                        <button type="submit" class="layui-btn" style="float:left">
+                            <i class="layui-icon">&#xe615;</i> 提交
+                        </button>
+                    </div>
+                </div>
+                <div class="layui-col-md4">&nbsp;</div>
+            </form>
+        </div>
+    </div>
+    <div class="layui-row">
+        <!--搜索成功，显示搜索内容-->
+        {% if session.IsSearchSuccess %}
+            <div class="layui-card-header" style="background-color: #c0c4cc">
+            <div class="layui-col-md2">&nbsp;</div>
+            <div class="layui-col-md3">客服咨询记录ID</div>
+            <div class="layui-col-md3">咨询时间</div>
+            <div class="layui-col-md3">咨询主题</div>
+            <div class="layui-col-md1">是否回复</div>
+        </div>
+            <div class="layui-collapse">
+            {% for entry in searchresult %}
+                <div class="layui-colla-item">
+                    <div class="layui-colla-title">
+                        <div class="layui-col-md2">&nbsp;</div>
+                        <div class="layui-col-md3">{{ entry.id }}</div>
+                        <div class="layui-col-md3">{{ entry.time }}</div>
+                        <div class="layui-col-md3">{{ entry.theme}}</div>
+                        <div class="layui-col-md1">{{ entry.isreply}}</div>
+                    </div>
+                    <div class="layui-colla-content">
+                        <div class="layui-row">
+                            <div class="layui-col-md1">&nbsp;</div>
+                            <div class="layui-col-md1" style="color:#c2c2c2;">咨询记录ID</div>
+                            <div class="layui-col-md10">{{ entry.id }}</div>
+                        </div>
+                        <div class="layui-row">
+                            <div class="layui-col-md1">&nbsp;</div>
+                            <div class="layui-col-md1" style="color:#c2c2c2;">咨询时间</div>
+                            <div class="layui-col-md10">{{ entry.time }}</div>
+                        </div>
+                        <div class="layui-row">
+                            <div class="layui-col-md1">&nbsp;</div>
+                            <div class="layui-col-md1" style="color:#c2c2c2;">咨询内容</div>
+                            <div class="layui-col-md10">{{ entry.content }}</div>
+                        </div>
+                        <div class="layui-row">
+                            <div class="layui-col-md1">&nbsp;</div>
+                            <div class="layui-col-md1" style="color:#c2c2c2;">客服答复</div>
+                            {% if entry.isreply == '是' %}
+                            <div class="layui-col-md10">{{ entry.reply }}</div>
+                            {% else %}
+                            <div class="layui-col-md11">
+                                <form action="{{ url_for('add_reply') }}" class="layui-form" method="post">
+                                    <input name="replyid" value="{{ entry.id }}" style="display: none">
+                                    <div class="layui-input-block" >
+                                        <textarea name='reply_content' placeholder="请输入内容" class="layui-textarea"></textarea>
+                                        <button type="submit" class="layui-btn" style="float:right">
+                                            <i class="layui-icon">&#xe609;</i> 提交
+                                        </button>
+                                    </div>
+                                </form>
+                            </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            {% else %}
+                <li><em>Unbelievable.  No messages here so far</em>
+            {% endfor %}
+            </div>
+        <!--未搜索时，显示全部内容-->
+        {% else %}
+            <div class="layui-card-header" style="background-color: #c0c4cc">
+            <div class="layui-col-md2">&nbsp;</div>
+            <div class="layui-col-md3">客服咨询记录ID</div>
+            <div class="layui-col-md3">咨询时间</div>
+            <div class="layui-col-md3">咨询主题</div>
+            <div class="layui-col-md1">是否回复</div>
+        </div>
+            <div class="layui-collapse">
+            {% for entry in entries %}
+                <div class="layui-colla-item">
+                    <div class="layui-colla-title">
+                        <div class="layui-col-md2">&nbsp;</div>
+                        <div class="layui-col-md3">{{ entry.id }}</div>
+                        <div class="layui-col-md3">{{ entry.time }}</div>
+                        <div class="layui-col-md3">{{ entry.theme}}</div>
+                        <div class="layui-col-md1">{{ entry.isreply}}</div>
+                    </div>
+                    <div class="layui-colla-content">
+                        <div class="layui-row">
+                            <div class="layui-col-md1">&nbsp;</div>
+                            <div class="layui-col-md1" style="color:#c2c2c2;">咨询记录ID</div>
+                            <div class="layui-col-md10">{{ entry.id }}</div>
+                        </div>
+                        <div class="layui-row">
+                            <div class="layui-col-md1">&nbsp;</div>
+                            <div class="layui-col-md1" style="color:#c2c2c2;">咨询时间</div>
+                            <div class="layui-col-md10">{{ entry.time }}</div>
+                        </div>
+                        <div class="layui-row">
+                            <div class="layui-col-md1">&nbsp;</div>
+                            <div class="layui-col-md1" style="color:#c2c2c2;">咨询内容</div>
+                            <div class="layui-col-md10">{{ entry.content }}</div>
+                        </div>
+                        <div class="layui-row">
+                            <div class="layui-col-md1">&nbsp;</div>
+                            <div class="layui-col-md1" style="color:#c2c2c2;">客服答复</div>
+                            {% if entry.isreply == '是' %}
+                            <div class="layui-col-md10">{{ entry.reply }}</div>
+                            {% else %}
+                            <div class="layui-col-md11">
+                                <form action="{{ url_for('add_reply') }}" class="layui-form" method="post">
+                                    <input name="replyid" value="{{ entry.id }}" style="display: none">
+                                    <div class="layui-input-block" >
+                                        <textarea name='reply_content' placeholder="请输入内容" class="layui-textarea"></textarea>
+                                        <button type="submit" class="layui-btn" style="float:right">
+                                            <i class="layui-icon">&#xe609;</i> 提交
+                                        </button>
+                                    </div>
+                                </form>
+                            </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            {% else %}
+                <li><em>Unbelievable.  No messages here so far</em>
+            {% endfor %}
+            </div>
+        {% endif %}
+
+    </div>
+</div>
+
+<script src="../../static/layuiadmin/layui/layui.all.js"></script>
+<script>
+//注意：折叠面板 依赖 element 模块，否则无法进行功能性操作
+layui.use('element', function(){
+  var element = layui.element;
+
+  //…
+});
+</script>
+</body>
+</html>
