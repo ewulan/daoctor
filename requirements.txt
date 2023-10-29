@@ -4,6 +4,7 @@ Flask-SQLAlchemy
 torch
 pillow
 torchvision
+matplotlib
 
 
 
