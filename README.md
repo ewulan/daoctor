@@ -18,7 +18,8 @@ daoctor :
     * If the environment is no longer needed, remove the command: conda remove -n pdd --all
  
 * Download the Plant Disease Detection app
-  * cd \daoctor 
+  * cd \daoctor
+    * If the root directory of the download code is "daoctor-master", please change it to "daoctor"
 
 * Install dependencies by running
   * pip install -r requirements.txt
