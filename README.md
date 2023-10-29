@@ -30,4 +30,5 @@ daoctor :
     
 * Visit http://hostIP:5000/ to explore and test.
   The hostIP is the address of the running host. Or you can find it in Powershell:
+  
   ![](https://github.com/ewulan/daoctor/blob/master/static/images/visit.png)
