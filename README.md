@@ -24,9 +24,11 @@ daoctor :
   * SQLALCHEMY_DATABASE_URI='sqlite:///./database/daoctor.sqlite3'
 
 * Install dependencies by running
-  * pip install -r requirements.txt.
+  * pip install -r requirements.txt
     
 * Start up the server by running
-  * python app.py serve.
-  * 
-* Visit http://localhost:8080/ to explore and test.
+  * python app.py serve
+    * Allow Python through the firewall as needed to enable your application to communicate with other computers or servers.
+
+    
+* Visit http://hostIP:5000/ to explore and test.
