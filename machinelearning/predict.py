@@ -7,6 +7,7 @@ Created on Sun Mar 15 19:11:13 2020
 
 import torch
 from daoctor.machinelearning.model import resnet34
+# from daoctor.machinelearning.model import resnet50
 from PIL import Image
 from torchvision import transforms
 import matplotlib.pyplot as plt
@@ -26,12 +27,20 @@ def img_predict(img_path):
     device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
     # root_path = './all/'
 
-    # create model
+    # create model for resnet34
     model = resnet34(num_classes=6).to(device)
     # load model weights
     weights_path = ori_path+"/resNet34.pth"
     assert os.path.exists(weights_path), "file: '{}' dose not exist.".format(weights_path)
     model.load_state_dict(torch.load(weights_path, map_location=device))
+
+    # create model for resnet50
+    # model = resnet50(num_classes=6).to(device)
+    # print("resnet50")
+    # # load model weights
+    # weights_path = ori_path+"/resNet50.pth"
+    # assert os.path.exists(weights_path), "file: '{}' dose not exist.".format(weights_path)
+    # model.load_state_dict(torch.load(weights_path, map_location=device))
 
 
     # read class_indict
