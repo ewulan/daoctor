@@ -10,7 +10,12 @@ daoctor
   * Python
   * Conda
 
-* Activate your virtual environment.
+* Create and activate your virtual environment.
+  * conda create -n pdd python=3.8
+  * conda env list
+  * conda activate pdd
+    
+  * If the environment is no longer needed, remove the command: conda remove -n pdd --all
 
 
 * Install dependencies by running pip install -r requirements.txt.
