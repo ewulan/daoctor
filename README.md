@@ -19,7 +19,7 @@ daoctor :
  
 * Download the Plant Disease Detection app
   * cd \daoctor
-  * 
+    
 * In config.py, change the database to an absolute path:
   * SQLALCHEMY_DATABASE_URI='sqlite:///./database/daoctor.sqlite3'
 
@@ -32,3 +32,5 @@ daoctor :
 
     
 * Visit http://hostIP:5000/ to explore and test.
+  The hostIP is the address of the running host. Or you can find it in Powershell:
+  ![](https://github.com/ewulan/daoctor/blob/master/static/images/visit.png)
