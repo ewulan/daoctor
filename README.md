@@ -1,4 +1,4 @@
-daoctor
+daoctor : 
  Plant Disease Detection
 ------------------------
  
