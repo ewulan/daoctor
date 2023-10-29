@@ -2,7 +2,7 @@ daoctor
  Plant Disease Detection
 ------------------------
  
-##Local Set-Up
+## Local Set-Up
 
 ### Local:
 *It is recommended to set up the project inside a virtual environment to keep the dependencies separated.
