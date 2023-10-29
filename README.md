@@ -20,6 +20,8 @@ daoctor :
 * Download the Plant Disease Detection app
   * cd \daoctor
   * 
+* In config.py, change the database to an absolute path:
+  * SQLALCHEMY_DATABASE_URI='sqlite:///./database/daoctor.sqlite3'
 
 * Install dependencies by running
   * pip install -r requirements.txt.
