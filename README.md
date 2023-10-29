@@ -15,14 +15,16 @@ daoctor :
   * conda env list
   * conda activate pdd
     
-  * If the environment is no longer needed, remove the command: conda remove -n pdd --all
+    * If the environment is no longer needed, remove the command: conda remove -n pdd --all
  
-* Install dependencies by running
+* Download the Plant Disease Detection app
+  * cd \daoctor
+  * 
 
 * Install dependencies by running
   * pip install -r requirements.txt.
     
 * Start up the server by running
-  * python app/server.py serve.
+  * python app.py serve.
   * 
 * Visit http://localhost:8080/ to explore and test.
